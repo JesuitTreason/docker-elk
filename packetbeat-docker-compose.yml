@@ -16,8 +16,8 @@ services:
       - packetbeat:/usr/share/packetbeat/data
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-manager1}
-      - KIBANA_HOST=${KIBANA_HOST:-manager1}
+      - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-elkmgr01}
+      - KIBANA_HOST=${KIBANA_HOST:-elkmgr01}
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
       # Eagerly waiting for Docker 19.06 release which will bring --privileged flag to Docker

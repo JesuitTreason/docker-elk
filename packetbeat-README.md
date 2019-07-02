@@ -8,15 +8,15 @@ Firstly, set the system variables as needed:
 - export ELASTIC_VERSION=7.2.0
 - export ELASTICSEARCH_USERNAME=elastic
 - export ELASTICSEARCH_PASSWORD=changeme
-- export ELASTICSEARCH_HOST=manager1
-- export KIBANA_HOST=manager1
-- export NODE_NAME=manager1
+- export ELASTICSEARCH_HOST=elkmgr01
+- export KIBANA_HOST=elkmgr01
+- export NODE_NAME=elkmgr01
 
 And than run the command below:
 ```
     docker container run \
     --rm --detach \
-    --hostname=${NODE_NAME:-manager1}-packetbeat \
+    --hostname=${NODE_NAME:-elkmgr01}-packetbeat \
     --name=packetbeat \
     --user=root \
     --volume=$PWD/elk/beats/packetbeat/config/packetbeat.yml:/usr/share/packetbeat/packetbeat.yml \
@@ -26,8 +26,8 @@ And than run the command below:
     --network=host \
     --env ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic} \
     --env ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme} \
-    --env ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-manager1} \
-    --env KIBANA_HOST=${KIBANA_HOST:-manager1} \
+    --env ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-elkmgr01} \
+    --env KIBANA_HOST=${KIBANA_HOST:-elkmgr01} \
     docker.elastic.co/beats/packetbeat:${ELASTIC_VERSION:-7.2.0} \
     --strict.perms=false
 ```
