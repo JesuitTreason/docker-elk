@@ -5,34 +5,6 @@ version: "3.7"
 
 services:
 
-  swarm-listener:
-    image: dockerflow/docker-flow-swarm-listener:latest
-    hostname: swarm-listener
-    networks:
-      - elastic
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      - DF_NOTIFY_CREATE_SERVICE_URL=http://proxy:8080/v1/docker-flow-proxy/reconfigure
-      - DF_NOTIFY_REMOVE_SERVICE_URL=http://proxy:8080/v1/docker-flow-proxy/remove
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-
-  proxy:
-    image: dockerflow/docker-flow-proxy:latest
-    hostname: proxy
-    ports:
-      - "80:80"
-      - "443:443"
-      - "9200:9200"
-    networks:
-      - elastic
-    environment:
-      - LISTENER_ADDRESS=swarm-listener
-      - MODE=swarm
-      - BIND_PORTS=9200
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.2.0}
     environment:
