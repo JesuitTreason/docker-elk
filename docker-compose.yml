@@ -59,6 +59,7 @@ services:
       - elastic
     ports:
       - "5601:5601"
+      - "80:80"
     volumes:
       - kibana:/usr/share/kibana/data
     deploy:
