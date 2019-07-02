@@ -53,8 +53,8 @@ You will need these files to deploy Eleasticsearch, Logstash, Kibana, and Beats.
   * `export ELASTIC_VERSION=7.2.0`
   * `export ELASTICSEARCH_USERNAME=elastic`
   * `export ELASTICSEARCH_PASSWORD=changeme`
-  * `export INITIAL_MASTER_NODES=node1` _(See Important discovery and cluster formation settings: https://www.elastic.co/guide/en/elasticsearch/reference/current/discovery-settings.html#initial_master_nodes)_
-  * `export ELASTICSEARCH_HOST=node1` _(node1 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to one of your VMs in the swarm cluster)_
+  * `export INITIAL_MASTER_NODES=manager1` _(See Important discovery and cluster formation settings: https://www.elastic.co/guide/en/elasticsearch/reference/current/discovery-settings.html#initial_master_nodes)_
+  * `export ELASTICSEARCH_HOST=manager1` _(manager1 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to one of your VMs in the swarm cluster)_
   * `docker network create --driver overlay --attachable elastic`
   * `docker stack deploy --compose-file docker-compose.yml elastic` _(Assuming you have only two VMs, this will deploy a reverse proxy, logstash, Kibana and 2x Elasticsearch instances in Master / data nodes configuration. Please note that Elasticsearch is configured to start as a global service which means elasticsearch data nodes will be scalled out automatically as soon as new VMs are added to the Swarm cluster. Here is an explaination on various Elasticsearch cluster nodes: https://discuss.elastic.co/t/node-types-in-an-elasticsearch-cluster/25488)_
 * Check status of the stack services by running the following commands:
@@ -70,8 +70,8 @@ Execute the following commands to deploy filebeat and metricbeat:
   * `export ELASTIC_VERSION=7.2.0`
   * `export ELASTICSEARCH_USERNAME=elastic`
   * `export ELASTICSEARCH_PASSWORD=changeme`
-  * `export ELASTICSEARCH_HOST=node1` _(node1 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to your Elasticsearch host)_
-  * `export KIBANA_HOST=node1` _(node1 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to your Kibana host)_
+  * `export ELASTICSEARCH_HOST=manager1` _(manager1 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to your Elasticsearch host)_
+  * `export KIBANA_HOST=manager1` _(manager1 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to your Kibana host)_
   * `docker network create --driver overlay --attachable elastic`
   * `docker stack deploy --compose-file filebeat-docker-compose.yml filebeat`  _(Filebeat starts as a global service on all docker swarm nodes. It is only configured to picks up container logs for all services at '`/var/lib/docker/containers/*/*.log`' (container stdout and stderr logs) and forward thtem to Elasticsearch. These logs will then be available under filebeat index in Kibana. You will need to add additional configurations for other log locations. You may wish to read [Docker Reference Architecture: Docker Logging Design and Best Practices](https://success.docker.com/article/docker-reference-architecture-docker-logging-design-and-best-practices))_
   * Running the following command should print elasticsearch index and one of the rows should have _filebeat-*_
@@ -100,7 +100,7 @@ Logstash pipeline is configured to accept messages with gelf log driver. Gelf is
 * Stop the Jenkins container started earlier:
   * `docker container stop jenkins`
 * Start Jenkins container again but with gelf log driver this time:
-  * `export LOGSTASH_HOST=node1`
+  * `export LOGSTASH_HOST=manager1`
   * `docker container run -d --rm --name jenkins -p 8080:8080 --log-driver=gelf --log-opt gelf-address=udp://${LOGSTASH_HOST}:12201 jenkinsci/blueocean`
   * Note that _`--log-driver=gelf --log-opt gelf-address=udp://${LOGSTASH_HOST}:12201`_ sends container console logs to Elastic stack
 * On the Kibana Management tab, configure an index pattern

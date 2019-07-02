@@ -9,7 +9,7 @@ Example has been tested in following versions:
 
 ### Prerequisites
 Use the provided Vagrantfile to create 3x VMs:
-- node1 and node2 _(Docker Swarm cluster)_ are for running ElasticSearch, Kibana and Logstash in swarm mode
+- manager1 and node2 _(Docker Swarm cluster)_ are for running ElasticSearch, Kibana and Logstash in swarm mode
   - Follow the instructions in [../README.md](../README.md) to deploy the Elastic Stack
 - node3 is where filebeat examples below will be running
 
@@ -30,11 +30,11 @@ docker container run --rm \
 --volume $PWD:/tmp \
 docker.elastic.co/beats/filebeat:7.2.0 \
 -e --modules=nginx --setup  -M "nginx.access.var.paths=[/tmp/nginx_logs]" \
--E output.elasticsearch.hosts='node1:9200' \
+-E output.elasticsearch.hosts='manager1:9200' \
 -E output.elasticsearch.username=elastic \
 -E output.elasticsearch.password=changeme \
 -E setup.dashboards.enabled=true \
--E setup.kibana.host='node1:80' \
+-E setup.kibana.host='manager1:80' \
 -E setup.kibana.username=elastic \
 -E setup.kibana.password=changeme \
 -E xpack.monitoring.enabled=true \
@@ -59,19 +59,19 @@ wget https://raw.githubusercontent.com/elastic/examples/master/Exploring%20Publi
 wget https://raw.githubusercontent.com/elastic/examples/master/Exploring%20Public%20Datasets/nyc_traffic_accidents/nyc_collision_kibana.json && \
 # nyc_collision_pipeline - ingest pipeline for processing csv lines
 wget https://raw.githubusercontent.com/elastic/examples/master/Exploring%20Public%20Datasets/nyc_traffic_accidents/nyc_collision_pipeline.json && \
-curl -XPUT -u elastic:changeme -H 'Content-Type: application/json' 'node1:9200/_ingest/pipeline/nyc_collision' -d @nyc_collision_pipeline.json && \
-curl -XPUT -u elastic:changeme -H 'Content-Type: application/json' 'node1:9200/_template/nyc_collision' -d @nyc_collision_template.json && \
+curl -XPUT -u elastic:changeme -H 'Content-Type: application/json' 'manager1:9200/_ingest/pipeline/nyc_collision' -d @nyc_collision_pipeline.json && \
+curl -XPUT -u elastic:changeme -H 'Content-Type: application/json' 'manager1:9200/_template/nyc_collision' -d @nyc_collision_template.json && \
 chmod go-w ./nyc_collision_filebeat.yml
 ```
 Modify the paths to `/tmp/nyc_collision_data.csv` and replace the word _prospectors_ with `inputs` in nyc_collision_filebeat.yml
 ```
 docker container run --name filebeat --rm --network host --volume filebeat:/usr/share/filebeat/data --volume $PWD:/tmp docker.elastic.co/beats/filebeat:7.2.0 \
 -e -c /tmp/nyc_collision_filebeat.yml \
--E output.elasticsearch.hosts='node1:9200' \
+-E output.elasticsearch.hosts='manager1:9200' \
 -E output.elasticsearch.username=elastic \
 -E output.elasticsearch.password=changeme \
 -E setup.dashboards.enabled=true \
--E setup.kibana.host='node1:80' \
+-E setup.kibana.host='manager1:80' \
 -E setup.kibana.username=elastic \
 -E setup.kibana.password=changeme \
 -E xpack.monitoring.enabled=true \

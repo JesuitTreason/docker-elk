@@ -6,15 +6,15 @@ Firstly, set the system variables as needed:
 - export ELASTIC_VERSION=7.2.0
 - export ELASTICSEARCH_USERNAME=elastic
 - export ELASTICSEARCH_PASSWORD=changeme
-- export ELASTICSEARCH_HOST=node1
-- export KIBANA_HOST=node1
-- export NODE_NAME=node1
+- export ELASTICSEARCH_HOST=manager1
+- export KIBANA_HOST=manager1
+- export NODE_NAME=manager1
 
 And than run the command below:
 ```
     docker container run \
     --rm --detach \
-    --hostname=${NODE_NAME:-node1}-auditbeat \
+    --hostname=${NODE_NAME:-manager1}-auditbeat \
     --name=auditbeat \
     --user=root \
     --volume=$PWD/elk/beats/auditbeat/config/auditbeat.yml:/usr/share/auditbeat/auditbeat.yml \
@@ -24,8 +24,8 @@ And than run the command below:
     --volume=/var/run/docker.sock:/var/run/docker.sock \
     --env ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic} \
     --env ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme} \
-    --env ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-node1} \
-    --env KIBANA_HOST=${KIBANA_HOST:-node1} \
+    --env ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-manager1} \
+    --env KIBANA_HOST=${KIBANA_HOST:-manager1} \
     docker.elastic.co/beats/auditbeat:${ELASTIC_VERSION:-7.2.0} \
     --strict.perms=false
 ```

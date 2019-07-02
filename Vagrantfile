@@ -16,15 +16,15 @@ Vagrant.configure("2") do |config|
 	config.vm.provision "docker"
 	config.vm.provision :shell, inline: "sysctl -w vm.max_map_count=262144"
 
-	config.vm.define "node1", primary: true do |node1|
-		node1.vm.hostname = 'node1'
-		node1.vm.network :private_network, ip: "192.168.99.101"
-		node1.vm.provider :virtualbox do |v|
+	config.vm.define "manager1", primary: true do |manager1|
+		manager1.vm.hostname = 'manager1'
+		manager1.vm.network :private_network, ip: "192.168.99.101"
+		manager1.vm.provider :virtualbox do |v|
 			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 			v.customize ["modifyvm", :id, "--memory", 3000]
-			v.customize ["modifyvm", :id, "--name", "node1"]
+			v.customize ["modifyvm", :id, "--name", "manager1"]
 		end
-		node1.vm.provision :shell, inline: $docker_swarm_init
+		manager1.vm.provision :shell, inline: $docker_swarm_init
 	end
 
   config.vm.define "node2" do |node2|
