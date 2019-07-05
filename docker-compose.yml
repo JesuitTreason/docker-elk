@@ -119,7 +119,7 @@ networks:
     elastic:
       external: false
     proxy:
-      external:true
+      external: true
 
 volumes:
   elasticsearch:
