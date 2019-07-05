@@ -97,15 +97,14 @@ services:
         - com.df.srcPort=80
 
   grafana:
-    image: grafana/grafana
-    networks:
-      - elastic
-    ports:
-      - 3000:3000
+    image: grafana/grafana:latest-with-plugins
+    hostname: "{{.Node.Hostname}}-grafana"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_DASHBOARD_JSON_ENABLED=true
       - GF_DASHBOARD_JSON_PATH=/opt/grafana
+    networks:
+      - elastic
     volumes:
       - grafana:/var/lib/grafana
     deploy:
@@ -113,9 +112,9 @@ services:
         - com.df.notify=true
         - com.df.distribute=true
         - com.df.servicePath=/
-        - com.df.port=8081
-
-      
+        - com.df.port=3000
+        - com.df.srcPort=8081
+        
 networks:
     elastic:
       external: true
