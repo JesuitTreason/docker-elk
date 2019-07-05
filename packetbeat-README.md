@@ -5,7 +5,7 @@ Eagerly waiting for Docker 19.06 release which will bring --privileged flag to D
 Until capabilities are available in docker swarm mode, execute the following instructions on each node where packetbeat is required:
 
 Firstly, set the system variables as needed:
-- export ELASTIC_VERSION=7.2.0
+- export ELASTIC_VERSION=7.1.1
 - export ELASTICSEARCH_USERNAME=elastic
 - export ELASTICSEARCH_PASSWORD=changeme
 - export ELASTICSEARCH_HOST=elkmgr01
@@ -28,6 +28,6 @@ And than run the command below:
     --env ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme} \
     --env ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-elkmgr01} \
     --env KIBANA_HOST=${KIBANA_HOST:-elkmgr01} \
-    docker.elastic.co/beats/packetbeat:${ELASTIC_VERSION:-7.2.0} \
+    docker.elastic.co/beats/packetbeat:${ELASTIC_VERSION:-7.1.1} \
     --strict.perms=false
 ```

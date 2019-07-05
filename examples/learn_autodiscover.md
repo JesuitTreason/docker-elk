@@ -2,17 +2,17 @@ The purpose of these exmaples is to learn how to used [filebeat](https://www.ela
 
 ### Prerequisites
 Use the provided Vagrantfile to create 3x VMs:
-- elkmgr01 and node2 _(Docker Swarm cluster)_ are for running ElasticSearch, Kibana and Logstash in swarm mode
+- elkmgr01 and elkworker01 _(Docker Swarm cluster)_ are for running ElasticSearch, Kibana and Logstash in swarm mode
   - Follow the instructions in [../README.md](../README.md) to deploy Elastic Stack
 - node3 is for running filebeat and metricbeat in swarm mode. See instructions in [../README.md](../README.md)
 - Examples below will be running on node3
 
 ### Versions
 Example has been tested in following versions:
-- Elasticsearch 7.2.0
-- Kibana 7.2.0
-- Filebeat 7.2.0
-- Metricbeat 7.2.0
+- Elasticsearch 7.1.1
+- Kibana 7.1.1
+- Filebeat 7.1.1
+- Metricbeat 7.1.1
 
 ### Elastic Stack - Apache2 module
 Ensure there is nothing listening on port 80.

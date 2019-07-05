@@ -50,7 +50,7 @@ You will need these files to deploy Eleasticsearch, Logstash, Kibana, and Beats.
 
 # Deploy Elastic Stack
 * SSH in to the master node of the Docker Swarm cluster allocated to running Elastic Stack. Deploy Elastic stack by running the following commands:
-  * `export ELASTIC_VERSION=7.2.0`
+  * `export ELASTIC_VERSION=7.1.1`
   * `export ELASTICSEARCH_USERNAME=elastic`
   * `export ELASTICSEARCH_PASSWORD=changeme`
   * `export INITIAL_MASTER_NODES=elkmgr01` _(See Important discovery and cluster formation settings: https://www.elastic.co/guide/en/elasticsearch/reference/current/discovery-settings.html#initial_master_nodes)_
@@ -67,7 +67,7 @@ You will need these files to deploy Eleasticsearch, Logstash, Kibana, and Beats.
 SSH in to the master node of the Docker Swarm cluster allocated to running containerized custom applicatins and beats. Clone this repo and change directory as per the instructions above.
 
 Execute the following commands to deploy filebeat and metricbeat:
-  * `export ELASTIC_VERSION=7.2.0`
+  * `export ELASTIC_VERSION=7.1.1`
   * `export ELASTICSEARCH_USERNAME=elastic`
   * `export ELASTICSEARCH_PASSWORD=changeme`
   * `export ELASTICSEARCH_HOST=elkmgr01` _(elkmgr01 is default value if you are creating VirtualBox with the provided Vagrantfile. Otherwise, change this value to your Elasticsearch host)_
@@ -117,7 +117,8 @@ Here is another example:
 * You can use syslog as well as TLS if you wish to add in your own certs
 
 # References
-- [Elastic Examples](https://github.com/elastic/examples)
+- [elastic/examples](https://github.com/elastic/examples) - Home for Elasticsearch examples available to everyone. It's a great way to get started
+- [elastic/stack-docker](https://github.com/elastic/stack-docker) - The Elastic Stack, on Docker, right now.
 - [Unifying APM, Logs, and Metrics for Deeper Operational Visibility](https://www.elastic.co/webinars/agumenting-logs-and-metrics-with-apm?blade=tw&hulk=social)
 - [ Machine Learning in the Elastic Stack - YouTube](https://www.youtube.com/watch?v=n6xW6YWYgs0&feature=youtu.be)
 - [Monitoring Modern Banking API Architectures with the Elastic Stack, Part II](https://www.elastic.co/blog/psd2-architectures-with-the-elastic-stack-part-ii)

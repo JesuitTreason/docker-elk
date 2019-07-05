@@ -2,14 +2,14 @@ The examples here are for learning purpose only and show how to start filebeat a
 
 ### Versions
 Example has been tested in following versions:
-- Elasticsearch 7.2.0
-- Kibana 7.2.0
-- Filebeat 7.2.0
+- Elasticsearch 7.1.1
+- Kibana 7.1.1
+- Filebeat 7.1.1
 
 
 ### Prerequisites
 Use the provided Vagrantfile to create 3x VMs:
-- elkmgr01 and node2 _(Docker Swarm cluster)_ are for running ElasticSearch, Kibana and Logstash in swarm mode
+- elkmgr01 and elkworker01 _(Docker Swarm cluster)_ are for running ElasticSearch, Kibana and Logstash in swarm mode
   - Follow the instructions in [../README.md](../README.md) to deploy the Elastic Stack
 - node3 is where filebeat examples below will be running
 
@@ -28,7 +28,7 @@ docker container run --rm \
 --network host \
 --volume filebeat:/usr/share/filebeat/data \
 --volume $PWD:/tmp \
-docker.elastic.co/beats/filebeat:7.2.0 \
+docker.elastic.co/beats/filebeat:7.1.1 \
 -e --modules=nginx --setup  -M "nginx.access.var.paths=[/tmp/nginx_logs]" \
 -E output.elasticsearch.hosts='elkmgr01:9200' \
 -E output.elasticsearch.username=elastic \
@@ -65,7 +65,7 @@ chmod go-w ./nyc_collision_filebeat.yml
 ```
 Modify the paths to `/tmp/nyc_collision_data.csv` and replace the word _prospectors_ with `inputs` in nyc_collision_filebeat.yml
 ```
-docker container run --name filebeat --rm --network host --volume filebeat:/usr/share/filebeat/data --volume $PWD:/tmp docker.elastic.co/beats/filebeat:7.2.0 \
+docker container run --name filebeat --rm --network host --volume filebeat:/usr/share/filebeat/data --volume $PWD:/tmp docker.elastic.co/beats/filebeat:7.1.1 \
 -e -c /tmp/nyc_collision_filebeat.yml \
 -E output.elasticsearch.hosts='elkmgr01:9200' \
 -E output.elasticsearch.username=elastic \

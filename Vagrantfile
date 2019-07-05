@@ -27,15 +27,15 @@ Vagrant.configure("2") do |config|
 		elkmgr01.vm.provision :shell, inline: $docker_swarm_init
 	end
 
-  config.vm.define "node2" do |node2|
-		node2.vm.hostname = 'node2'
-		node2.vm.network :private_network, ip: "192.168.99.102"
-		node2.vm.provider :virtualbox do |v|
+  config.vm.define "elkworker01" do |elkworker01|
+		elkworker01.vm.hostname = 'elkworker01'
+		elkworker01.vm.network :private_network, ip: "192.168.99.102"
+		elkworker01.vm.provider :virtualbox do |v|
 			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 			v.customize ["modifyvm", :id, "--memory", 3000]
-			v.customize ["modifyvm", :id, "--name", "node2"]
+			v.customize ["modifyvm", :id, "--name", "elkworker01"]
 		end
-		node2.vm.provision :shell, inline: "docker swarm join --token $(cat /vagrant/worker_token) 192.168.99.101:2377"
+		elkworker01.vm.provision :shell, inline: "docker swarm join --token $(cat /vagrant/worker_token) 192.168.99.101:2377"
 	end
 
   config.vm.define "node3" do |node3|
