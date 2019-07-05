@@ -101,8 +101,6 @@ services:
     hostname: "{{.Node.Hostname}}-grafana"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_DASHBOARD_JSON_ENABLED=true
-      - GF_DASHBOARD_JSON_PATH=/opt/grafana
     networks:
       - elastic
     volumes:
@@ -127,3 +125,4 @@ volumes:
 configs:
   ls_config:
     file: $PWD/elk/logstash/config/pipeline/logstash.conf
+    
