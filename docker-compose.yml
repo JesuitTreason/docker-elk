@@ -26,7 +26,7 @@ services:
       - "80:80"
       - "443:443"
       - "9200:9200"
-      - "8081:8081"
+      - "3000:3000"
     networks:
       - elastic
     environment:
@@ -111,7 +111,6 @@ services:
         - com.df.distribute=true
         - com.df.servicePath=/
         - com.df.port=3000
-        - com.df.srcPort=8081
         
 networks:
     elastic:
