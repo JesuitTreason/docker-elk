@@ -9,7 +9,7 @@ services:
     image: dockerflow/docker-flow-swarm-listener:latest
     hostname: swarm-listener
     networks:
-      - elastic
+      - proxy
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
@@ -26,9 +26,8 @@ services:
       - "80:80"
       - "443:443"
       - "9200:9200"
-      - "3000:3000"
     networks:
-      - elastic
+      - proxy
     environment:
       - LISTENER_ADDRESS=swarm-listener
       - MODE=swarm
@@ -49,6 +48,7 @@ services:
       - network.host=0.0.0.0
     networks:
       - elastic
+      - proxy
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
     deploy:
@@ -86,13 +86,14 @@ services:
       - SERVER_NAME="{{.Node.Hostname}}-kibana"
     networks:
       - elastic
+      - proxy
     volumes:
       - kibana:/usr/share/kibana/data
     deploy:
       labels:
         - com.df.notify=true
         - com.df.distribute=true
-        - com.df.servicePath=/
+        - com.df.servicePath=/kibana
         - com.df.port=5601
         - com.df.srcPort=80
 
@@ -103,18 +104,22 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     networks:
       - elastic
+      - proxy
     volumes:
       - grafana:/var/lib/grafana
     deploy:
       labels:
         - com.df.notify=true
         - com.df.distribute=true
-        - com.df.servicePath=/
+        - com.df.servicePath=/grafana
         - com.df.port=3000
+        - com.df.srcPort=80
         
 networks:
     elastic:
-      external: true
+      external: false
+    proxy:
+      external:true
 
 volumes:
   elasticsearch:
