@@ -95,11 +95,10 @@ services:
         - com.df.port=5601
         - com.df.srcPort=80
         
-
   grafana:
     image: grafana/grafana
     networks:
-      - elasticsearch
+      - elastic
     ports:
       - 3000:3000
     environment:
@@ -108,7 +107,6 @@ services:
       - GF_DASHBOARD_JSON_PATH=/opt/grafana
     volumes:
       - grafana:/var/lib/grafana       
-
 
 networks:
     elastic:
