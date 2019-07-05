@@ -94,6 +94,21 @@ services:
         - com.df.servicePath=/
         - com.df.port=5601
         - com.df.srcPort=80
+        
+
+  grafana:
+    image: grafana/grafana
+    networks:
+      - elasticsearch
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_DASHBOARD_JSON_ENABLED=true
+      - GF_DASHBOARD_JSON_PATH=/opt/grafana
+    volumes:
+      - grafana:/var/lib/grafana       
+
 
 networks:
     elastic:
@@ -102,6 +117,7 @@ networks:
 volumes:
   elasticsearch:
   kibana:
+  grafana:
 
 configs:
   ls_config:
