@@ -93,7 +93,7 @@ services:
         - com.df.distribute=true
         - com.df.servicePath=/
         - com.df.port=5601
-        - com.df.srcPort=80      
+        - com.df.srcPort=80
 
 networks:
     elastic:
