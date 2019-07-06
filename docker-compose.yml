@@ -33,7 +33,7 @@ services:
     environment:
       - LISTENER_ADDRESS=swarm-listener
       - MODE=swarm
-      - BIND_PORTS=9200
+      - BIND_PORTS=9200,3000,5601
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.1.1}
