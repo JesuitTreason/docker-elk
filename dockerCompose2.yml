@@ -51,7 +51,7 @@ services:
         source: logs
         target: /var/log
       - type: volume
-        source: esdata1
+        source: esdata
         target: /usr/share/elasticsearch/data
        
   logstash:
@@ -74,7 +74,7 @@ services:
     container_name: kibana
     environment:
       SERVER_NAME: localhost
-      ELASTICSEARCH_URL: http://elasticsearch1:9200/
+      ELASTICSEARCH_URL: http://elasticsearch:9200/
     ports:
       - 5601:5601
     volumes:
@@ -214,8 +214,9 @@ services:
       nproc: 65535
     networks:
       - proxy
+      
 volumes:
-  esdata
+  esdata:
   logs:
 
 networks:
