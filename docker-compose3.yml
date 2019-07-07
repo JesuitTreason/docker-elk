@@ -18,7 +18,7 @@ services:
       - xpack.monitoring.collection.enabled=true
       - xpack.license.self_generated.type=trial
       - network.host=0.0.0.0
-    ports
+    ports:
       - "9200:9200"
     networks:
       - elastic
