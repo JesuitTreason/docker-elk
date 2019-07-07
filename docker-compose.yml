@@ -99,27 +99,25 @@ services:
         - com.df.port=5601
         - com.df.srcPort=5601
 
-  grafana:
-    image: grafana/grafana
-    hostname: "{{.Node.Hostname}}-grafana"
-    environment:
-
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_DASHBOARD_JSON_ENABLED=true
-      - GF_DASHBOARD_JSON_PATH=/opt/grafana
-    volumes:
-      - grafana:/var/lib/grafana
-    networks:
-      - elastic
-      - proxy
-    deploy:
-      labels:
-        - com.df.notify=true
-        - com.df.distribute=true
-        - com.df.servicePath=/
-        - com.df.port=3000
-        - com.df.srcPort=3000
+#  grafana:
+#    image: grafana/grafana
+#    hostname: "{{.Node.Hostname}}-grafana"
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=admin
+#      - GF_DASHBOARD_JSON_ENABLED=true
+#      - GF_DASHBOARD_JSON_PATH=/opt/grafana
+#    volumes:
+#      - grafana:/var/lib/grafana
+#    networks:
+#      - elastic
+#      - proxy
+#    deploy:
+#      labels:
+#        - com.df.notify=true
+#        - com.df.distribute=true
+#        - com.df.servicePath=/
+#        - com.df.port=3000
+#        - com.df.srcPort=3000
         
 networks:
     elastic:
