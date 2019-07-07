@@ -223,7 +223,7 @@ networks:
   elastic:
   proxy:
 
- configs:
+configs:
   ls_config:
     file: $PWD/elk/logstash/config/pipeline/logstash.conf
 #   auditbeat_config:
