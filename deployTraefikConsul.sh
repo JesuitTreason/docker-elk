@@ -1,5 +1,5 @@
 docker network create --driver=overlay traefik-public
-docker network create --driver=overlay --attachable traefik-private
+docker network create --driver=overlay traefik-private
 
 export EMAIL=admin@example.com
 export DOMAIN=sys.example.com
