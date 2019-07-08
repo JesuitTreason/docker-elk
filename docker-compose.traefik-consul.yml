@@ -10,7 +10,7 @@ services:
       - CONSUL_BIND_INTERFACE=eth0
       - 'CONSUL_LOCAL_CONFIG={"leave_on_terminate": true}'
     networks:
-      - default
+      - traefik-private
       - traefik-public
     deploy:
       labels:
@@ -34,7 +34,7 @@ services:
       - CONSUL_BIND_INTERFACE=eth0
       - 'CONSUL_LOCAL_CONFIG={"leave_on_terminate": true}'
     networks:
-      - default
+      - traefik-private
       - traefik-public
     deploy:
       replicas: ${CONSUL_REPLICAS:-3}
@@ -88,7 +88,7 @@ services:
       --accessLog
       --api
     networks:
-      - default
+      - traefik-private
       - traefik-public
     depends_on:
       - consul-leader
