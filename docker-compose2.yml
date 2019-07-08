@@ -64,11 +64,16 @@ services:
       - kibana:/usr/share/kibana/data
     deploy:
       labels:
-        - com.df.notify=true
-        - com.df.distribute=true
-        - com.df.servicePath=/
-        - com.df.port=5601
-        - com.df.srcPort=5601
+        - traefik.frontend.rule=Host:kibana.${DOMAIN}
+        - traefik.enable=true
+        - traefik.port=5601
+        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+        - traefik.docker.network=traefik-public
+        # Traefik service that listens to HTTP
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
         
 networks:
     elastic:
