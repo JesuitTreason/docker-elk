@@ -100,3 +100,5 @@ volumes:
 networks:
   traefik-public:
     external: true
+    traefik-private:
+    external: false
