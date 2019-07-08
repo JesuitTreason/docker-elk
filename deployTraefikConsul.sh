@@ -9,10 +9,9 @@ export PASSWORD=changethis
 export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
 echo $HASHED_PASSWORD
 
-export CONSUL_REPLICAS=2
 export CONSUL_REPLICAS=3
 
-export TRAEFIK_REPLICAS=$(docker node ls -q | wc -l)
+export TRAEFIK_REPLICAS=3
 
 docker stack deploy -c traefik.yml traefik-consul
 
