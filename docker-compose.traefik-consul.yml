@@ -101,4 +101,4 @@ networks:
   traefik-public:
     external: true
   traefik-private:
-    external: false
+    external: true
