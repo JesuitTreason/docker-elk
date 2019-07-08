@@ -19,19 +19,23 @@ services:
       - xpack.license.self_generated.type=trial
       - network.host=0.0.0.0
     networks:
-      - elastic
-      - proxy
+      - traefik-public
+      - traefik-private
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
     deploy:
       mode: 'global'
       endpoint_mode: dnsrr
       labels:
-        - com.df.notify=true
-        - com.df.distribute=true
-        - com.df.servicePath=/
-        - com.df.port=9200
-        - com.df.srcPort=9200
+        - traefik.frontend.rule=Host:elasticsearch.${DOMAIN}
+        - traefik.enable=true
+        - traefik.port=9200
+        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+        - traefik.docker.network=traefik-public
+        # Traefik service that listens to HTTP
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+        - traefik.webservice.frontend.entryPoints=http   
 
   logstash:
     image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION:-7.1.1}
@@ -43,7 +47,8 @@ services:
     ports:
       - "12201:12201/udp"
     networks:
-      - elastic
+      - traefik-public
+      - traefik-private
     configs:
       - source: ls_config
         target: /usr/share/logstash/pipeline/logstash.conf
@@ -58,8 +63,8 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
       - SERVER_NAME="{{.Node.Hostname}}-kibana"
     networks:
-      - elastic
-      - proxy
+      - traefik-public
+      - traefik-private
     volumes:
       - kibana:/usr/share/kibana/data
     deploy:
@@ -76,9 +81,9 @@ services:
         - traefik.webservice.frontend.entryPoints=https
         
 networks:
-    elastic:
-      external: false
-    proxy:
+    traefik-private:
+      external: true
+    traefik-public:
       external: true
 
 volumes:
