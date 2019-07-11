@@ -19,7 +19,7 @@ services:
       - xpack.license.self_generated.type=trial
       - network.host=0.0.0.0
     networks:
-      - traefik-private
+      - elastic
       - traefik-public
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
@@ -40,8 +40,8 @@ services:
         - traefik.webservice.frontend.entryPoints=http 
 
 networks:
-    traefik-private:
-      external: true
+    elastic:
+      attachable: true
     traefik-public:
       external: true
       
