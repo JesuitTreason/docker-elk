@@ -13,7 +13,7 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
       - SERVER_NAME="{{.Node.Hostname}}-kibana"
     networks:
-      - elastic
+      - elastic_elasticsearch
       - traefik-private
     volumes:
       - kibana:/usr/share/kibana/data
