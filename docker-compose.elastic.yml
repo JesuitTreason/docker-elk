@@ -1,0 +1,49 @@
+version: "3.7"
+
+# 10 Things to Consider When Planning Your Elasticsearch Project: https://ecmarchitect.com/archives/2015/07/27/4031
+# Using Apache JMeter to Test Elasticsearch: https://ecmarchitect.com/archives/2014/09/02/3915
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-7.1.1}
+    environment:
+      # https://github.com/docker/swarmkit/issues/1951
+      - node.name={{.Node.Hostname}}
+      - discovery.seed_hosts=elasticsearch
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+      - cluster.initial_master_nodes=${INITIAL_MASTER_NODES:-node1}
+      - cluster.name=DevOps
+      - xpack.security.enabled=true
+      - xpack.monitoring.collection.enabled=true
+      - xpack.license.self_generated.type=trial
+      - network.host=0.0.0.0
+    networks:
+      - traefik-private
+      - traefik-public
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+      labels:
+        # traefik.backend.loadbalancer.method=drr
+        - traefik.frontend.rule=Host:elasticsearch.${DOMAIN}
+        - traefik.enable=true
+        - traefik.port=9200
+        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+        - traefik.docker.network=traefik-public
+        # Traefik service that listens to HTTP
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+        - traefik.webservice.frontend.entryPoints=http 
+
+networks:
+    traefik-private:
+      external: true
+    traefik-public:
+      external: true
+      
+volumes:
+  elasticsearch:
