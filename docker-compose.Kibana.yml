@@ -13,7 +13,7 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
       - SERVER_NAME="{{.Node.Hostname}}-kibana"
     networks:
-      - traefik-public
+      - elastic
       - traefik-private
     volumes:
       - kibana:/usr/share/kibana/data
@@ -29,12 +29,6 @@ services:
         - traefik.redirectorservice.frontend.redirect.entryPoint=https
         # Traefik service that listens to HTTPS
         - traefik.webservice.frontend.entryPoints=https
-        
-networks:
-    elastic:
-      attachable: true
-    traefik-public:
-      external: true
 
 volumes:
   kibana:
