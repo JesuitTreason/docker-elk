@@ -4,3 +4,9 @@ initial setup will require all compose files to run in the same session
 
 git clone https://github.com/JesuitTreason/docker-elk.git
 cd docker-elk
+
+install order
+Treafik-consul
+swarmpit
+elasticsearch
+kibana
