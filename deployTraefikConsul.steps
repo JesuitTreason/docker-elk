@@ -4,9 +4,9 @@ docker network create --driver=overlay traefik-private
 export EMAIL=admin@example.com
 export DOMAIN=sys.example.com
 
-export USERNAME=admin
-export PASSWORD=changethis
-export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
+export TRAEFIK_USERNAME=admin
+export TRAEFIK_PASSWORD=changethis
+export TRAEFIK_HASHED_PASSWORD=$(openssl passwd -apr1 $TRAEFIK_PASSWORD)
 echo $HASHED_PASSWORD
 
 export CONSUL_REPLICAS=3
