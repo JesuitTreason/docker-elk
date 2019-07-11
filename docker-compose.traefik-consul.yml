@@ -23,8 +23,8 @@ services:
         # traefik.redirectorservice.frontend.entryPoints=http
         # traefik.redirectorservice.frontend.redirect.entryPoint=https
         # Traefik service that listens to HTTPS
-        # traefik.webservice.frontend.entryPoints=https
-        # traefik.webservice.frontend.entryPoints=http
+        - traefik.webservice.frontend.entryPoints=https
+        - traefik.webservice.frontend.entryPoints=http
         - traefik.frontend.auth.basic.users=${USERNAME?Variable USERNAME not set}:${HASHED_PASSWORD?Variable HASHED_PASSWORD not set}
   consul-replica:
     image: consul
@@ -64,7 +64,7 @@ services:
         # traefik.redirectorservice.frontend.entryPoints=http
         # traefik.redirectorservice.frontend.redirect.entryPoint=https
         # Traefik service that listens to HTTPS
-        # traefik.webservice.frontend.entryPoints=https
+        - traefik.webservice.frontend.entryPoints=https
         - traefik.webservice.frontend.entryPoints=http        
         - traefik.frontend.auth.basic.users=${USERNAME?Variable USERNAME not set}:${HASHED_PASSWORD?Variable HASHED_PASSWORD not set}
     volumes:
