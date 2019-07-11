@@ -24,8 +24,7 @@ services:
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
     deploy:
-      mode: replicated
-      replicas: 1
+      mode: 'global'
       endpoint_mode: dnsrr
       labels:
         # traefik.backend.loadbalancer.method=drr
