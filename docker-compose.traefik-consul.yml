@@ -25,7 +25,7 @@ services:
         # Traefik service that listens to HTTPS
         - traefik.webservice.frontend.entryPoints=https
         - traefik.webservice.frontend.entryPoints=http
-        - traefik.frontend.auth.basic.users=${USERNAME?Variable USERNAME not set}:${HASHED_PASSWORD?Variable HASHED_PASSWORD not set}
+        - traefik.frontend.auth.basic.users=${TREAFIK_USERNAME?Variable USERNAME not set}:${TRAEFIK_HASHED_PASSWORD?Variable TRAEFIK_HASHED_PASSWORD not set}
   consul-replica:
     image: consul
     command: agent -server -client=0.0.0.0 -retry-join="consul-leader"
@@ -66,7 +66,7 @@ services:
         # Traefik service that listens to HTTPS
         - traefik.webservice.frontend.entryPoints=https
         - traefik.webservice.frontend.entryPoints=http        
-        - traefik.frontend.auth.basic.users=${USERNAME?Variable USERNAME not set}:${HASHED_PASSWORD?Variable HASHED_PASSWORD not set}
+        - traefik.frontend.auth.basic.users=${TRAEFIK_USERNAME?Variable USERNAME not set}:${TRAEFIK_HASHED_PASSWORD?Variable TRAEFIK_HASHED_PASSWORD not set}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: >
