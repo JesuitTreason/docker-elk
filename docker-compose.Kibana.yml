@@ -12,7 +12,6 @@ services:
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
       - SERVER_NAME="{{.Node.Hostname}}-kibana"
-    networks:
     volumes:
       - kibana:/usr/share/kibana/data
     deploy:
