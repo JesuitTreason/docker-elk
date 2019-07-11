@@ -1,4 +1,4 @@
- version: "3.7"
+version: "3.7"
 
 # 10 Things to Consider When Planning Your Elasticsearch Project: https://ecmarchitect.com/archives/2015/07/27/4031
 # Using Apache JMeter to Test Elasticsearch: https://ecmarchitect.com/archives/2014/09/02/3915
@@ -31,8 +31,8 @@ services:
         - traefik.webservice.frontend.entryPoints=https
         
 networks:
-    traefik-private:
-      external: true
+    elastic:
+      attachable: true
     traefik-public:
       external: true
 
