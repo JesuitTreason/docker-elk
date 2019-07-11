@@ -7,7 +7,7 @@ export DOMAIN=sys.example.com
 export TRAEFIK_USERNAME=admin
 export TRAEFIK_PASSWORD=changethis
 export TRAEFIK_HASHED_PASSWORD=$(openssl passwd -apr1 $TRAEFIK_PASSWORD)
-echo $HASHED_PASSWORD
+echo $TRAEFIK_HASHED_PASSWORD
 
 export CONSUL_REPLICAS=3
 
