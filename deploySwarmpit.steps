@@ -5,3 +5,5 @@ docker node update --label-add swarmpit.db-data=true $NODE_ID
 docker stack deploy -c docker-compose.swarmpit.yml swarmpit
 
 docker stack ps swarmpit
+
+docker service logs swarmpit_app
