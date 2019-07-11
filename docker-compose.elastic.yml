@@ -29,7 +29,7 @@ services:
       endpoint_mode: dnsrr
       labels:
         # traefik.backend.loadbalancer.method=drr
-        - traefik.frontend.rule=Host:elasticsearch.${DOMAIN}
+        - traefik.frontend.rule=Host:elasticsearch.${DOMAIN?Variable DOMAIN not set}
         - traefik.enable=true
         - traefik.port=9200
         - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
