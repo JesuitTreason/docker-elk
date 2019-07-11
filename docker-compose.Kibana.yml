@@ -1,0 +1,40 @@
+ version: "3.7"
+
+# 10 Things to Consider When Planning Your Elasticsearch Project: https://ecmarchitect.com/archives/2015/07/27/4031
+# Using Apache JMeter to Test Elasticsearch: https://ecmarchitect.com/archives/2014/09/02/3915
+
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION:-7.1.1}
+    hostname: "{{.Node.Hostname}}-kibana"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+      - SERVER_NAME="{{.Node.Hostname}}-kibana"
+    networks:
+      - traefik-public
+      - traefik-private
+    volumes:
+      - kibana:/usr/share/kibana/data
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:kibana.${DOMAIN?Variable DOMAIN not set}
+        - traefik.enable=true
+        - traefik.port=5601
+        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+        - traefik.docker.network=traefik-public
+        # Traefik service that listens to HTTP
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+        
+networks:
+    traefik-private:
+      external: true
+    traefik-public:
+      external: true
+
+volumes:
+  kibana:
