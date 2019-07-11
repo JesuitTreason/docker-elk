@@ -33,7 +33,7 @@ services:
         # traefik.redirectorservice.frontend.entryPoints=http
         # traefik.redirectorservice.frontend.redirect.entryPoint=https
         # Traefik service that listens to HTTPS
-        # traefik.webservice.frontend.entryPoints=https
+        - traefik.webservice.frontend.entryPoints=https
         - traefik.webservice.frontend.entryPoints=http
 
   db:
