@@ -36,7 +36,7 @@ services:
         reservations:
           memory: 128M
       labels:
-        - traefik.frontend.rule=Host:prometheus.${DOMAIN}
+        - traefik.frontend.rule=Host:elasticsearch.${DOMAIN}
         - traefik.enable=true
         - traefik.port=9000
         - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
