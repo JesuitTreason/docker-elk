@@ -1,0 +1,1 @@
+docker service update --network-add elastic_elasticnet elastic_logstash
