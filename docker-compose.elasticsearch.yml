@@ -48,7 +48,7 @@ services:
         - traefik.webservice.frontend.entryPoints=http
 
 networks:
-  elasticnet:
+  elastic-net:
     driver: overlay
     attachable: true
   swarmprom_net:
