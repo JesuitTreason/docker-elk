@@ -19,8 +19,7 @@ services:
       - xpack.license.self_generated.type=basic
       - network.host=0.0.0.0
     networks:
-      - elasticnet
-      - swarmprom_net
+      - elastic-net
       - traefik-public
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
@@ -51,11 +50,5 @@ networks:
   elastic-net:
     driver: overlay
     attachable: true
-  swarmprom_net:
-    driver: overlay
-    attachable: true
   traefik-public:
     external: true
-      
-volumes:
-  elasticsearch:
