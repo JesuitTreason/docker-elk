@@ -1,0 +1,32 @@
+version: "3.7"
+
+# 10 Things to Consider When Planning Your Elasticsearch Project: https://ecmarchitect.com/archives/2015/07/27/4031
+# Using Apache JMeter to Test Elasticsearch: https://ecmarchitect.com/archives/2014/09/02/3915
+
+services:
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION:-7.1.1}
+    hostname: "{{.Node.Hostname}}-logstash"
+    environment:
+      - XPACK_MONITORING_ELASTICSEARCH_URL=http://elasticsearch:9200
+      - XPACK_MONITORING_ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+      - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+    ports:
+      - "12201:12201/udp"
+    networks:
+      - elastic
+    configs:
+      - source: ls_config
+        target: /usr/share/logstash/pipeline/logstash.conf
+        
+networks:
+    elastic:
+      external: false
+    proxy:
+      external: true
+
+configs:
+  ls_config:
+    file: $PWD/elk/logstash/config/pipeline/logstash.conf
+    
