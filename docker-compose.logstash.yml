@@ -21,8 +21,6 @@ services:
         target: /usr/share/logstash/pipeline/logstash.conf
         
 networks:
-    elastic:
-      external: false
     traefik-publik:
       external: true
 
