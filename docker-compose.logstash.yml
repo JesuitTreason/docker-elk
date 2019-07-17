@@ -23,7 +23,7 @@ services:
 networks:
     elastic:
       external: false
-    proxy:
+    traefik-publik:
       external: true
 
 configs:
