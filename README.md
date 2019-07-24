@@ -1,4 +1,4 @@
-[![Build Status on Travis](https://travis-ci.org/shazChaudhry/docker-elastic.svg?branch=server.basePath "CI build status on Travis")](https://travis-ci.org/shazChaudhry/docker-elastic)
+using this as a working guide and template for my usecase.  the fork didn't work right so I downloaded the project files and uploaded them manually.   - will clean up later
 
 # User story
 As a DevOps team member, I want to install [Elastic Stack](https://www.elastic.co/products) so that all application and system logs are collected centrally for searching, visualizing, analyzing and reporting purpose
