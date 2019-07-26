@@ -29,8 +29,6 @@ services:
         target: /usr/share/logstash/conf.d/JDBCFBActMembers.conf
       - source: ls_jdbcmembershipcounts_config
         target: /usr/share/logstash/conf.d/JDBCMembershipCounts.conf
-      - source: ls_jdbcsqldriver
-        target: /usr/share/logstash/sqldriver/sqljdbc_4.2/enu/jre8/sqljdbc42.jar
         
 networks:
     traefik-publik:
