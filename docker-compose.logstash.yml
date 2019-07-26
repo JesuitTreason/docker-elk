@@ -13,14 +13,42 @@ services:
       - XPACK_MONITORING_ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
       - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
     configs:
-      - source: ls_config
-        target: /usr/share/logstash/pipeline/logstash.conf
+      - source: ls_pipelines_config
+        target: /usr/share/logstash/pipelines.yml
+      - source: ls_apicountryusers_config
+        target: /usr/share/logstash/conf.d/APICountryUsers.conf
+      - source: ls_jdbcactivatordonations_config
+        target: /usr/share/logstash/conf.d/JDBCActivatorDonations.conf
+      - source: ls_jdbcapplicants_config
+        target: /usr/share/logstash/conf.d/JDBCApplicants.conf
+      - source: ls_jdbcfbactgeodata_config
+        target: /usr/share/logstash/conf.d/JDBCFBActGeoData.conf
+      - source: ls_jdbcfbactmembers_config
+        target: /usr/share/logstash/conf.d/JDBCFBActMembers.conf
+      - source: ls_jdbcmembershipcounts_config
+        target: /usr/share/logstash/conf.d/JDBCMembershipCounts.conf
+      - source: ls_jdbcsqldriver
+        target: /usr/share/logstash/sqldriver/sqljdbc_4.2/enu/jre8/sqljdbc42.jar
         
 networks:
     traefik-publik:
       external: true
 
 configs:
-  ls_config:
-    file: $PWD/elk/logstash/config/pipeline/logstash.conf
+  ls_pipelines_config:
+    file: $PWD/elk/logstash/pipelines.yml
+  ls_apicountryusers_config:
+    file: $PWD/elk/logstash/conf.d/APICountryUsers.conf
+  ls_jdbcactivatordonations_config
+    file: $PWD/elk/logstash/conf.d/JDBCActivatorDonations.conf
+  ls_jdbcapplicants_config
+    file: $PWD/elk/logstash/conf.d/JDBCApplicants.conf
+  ls_jdbcfbactgeodata_config
+    file: $PWD/elk/logstash/conf.d/JDBCFBActGeoData.conf
+  ls_jdbcfbactmembers_config
+    file: $PWD/elk/logstash/conf.d/JDBCFBActMembers.conf
+  ls_jdbcmembershipcounts_config
+    file: $PWD/elk/logstash/conf.d/JDBCFBActMembers.conf
+  ls_jdbcsqldriver
+    file: $PWD/elk/logstash/sqldriver/sqljdbc_4.2/enu/jre8/sqljdbc42.jar
     
