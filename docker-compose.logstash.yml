@@ -41,15 +41,15 @@ configs:
     file: $PWD/elk/logstash/pipelines.yml
   ls_apicountryusers_config:
     file: $PWD/elk/logstash/conf.d/APICountryUsers.conf
-  ls_jdbcactivatordonations_config
+  ls_jdbcactivatordonations_config:
     file: $PWD/elk/logstash/conf.d/JDBCActivatorDonations.conf
-  ls_jdbcapplicants_config
+  ls_jdbcapplicants_config:
     file: $PWD/elk/logstash/conf.d/JDBCApplicants.conf
-  ls_jdbcfbactgeodata_config
+  ls_jdbcfbactgeodata_config:
     file: $PWD/elk/logstash/conf.d/JDBCFBActGeoData.conf
-  ls_jdbcfbactmembers_config
+  ls_jdbcfbactmembers_config:
     file: $PWD/elk/logstash/conf.d/JDBCFBActMembers.conf
-  ls_jdbcmembershipcounts_config
+  ls_jdbcmembershipcounts_config:
     file: $PWD/elk/logstash/conf.d/JDBCFBActMembers.conf
 
     
