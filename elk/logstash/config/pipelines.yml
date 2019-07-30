@@ -1,0 +1,6 @@
+- pipeline.id: fb_users
+  path.config: "/usr/share/logstash/pipeline/APICountryUsers.conf"
+  pipeline.workers: 6
+- pipeline.id: fb_fbact_members
+  path.config: "/usr/share/logstash/pipeline/JDBCFBActMembers.conf"
+  pipeline.workers: 6  
