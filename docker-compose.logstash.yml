@@ -8,7 +8,7 @@ volumes:
     
 services:
   logstash:
-    image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION:-7.1.1}
+    image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION:-7.2}
     hostname: "{{.Node.Hostname}}-logstash"
     environment:
       - XPACK_MONITORING_ELASTICSEARCH_URL=http://elasticsearch:9200
@@ -18,19 +18,11 @@ services:
       - logstash:/usr/share/logstash
     configs:
       - source: ls_pipelines_config
-        target: /usr/share/logstash/pipelines.yml
+        target: /usr/share/logstash/config/pipelines.yml
       - source: ls_apicountryusers_config
-        target: /usr/share/logstash/conf.d/APICountryUsers.conf
-      - source: ls_jdbcactivatordonations_config
-        target: /usr/share/logstash/conf.d/JDBCActivatorDonations.conf
-      - source: ls_jdbcapplicants_config
-        target: /usr/share/logstash/conf.d/JDBCApplicants.conf
-      - source: ls_jdbcfbactgeodata_config
-        target: /usr/share/logstash/conf.d/JDBCFBActGeoData.conf
+        target: /usr/share/logstash/pipeline/APICountryUsers.conf
       - source: ls_jdbcfbactmembers_config
-        target: /usr/share/logstash/conf.d/JDBCFBActMembers.conf
-      - source: ls_jdbcmembershipcounts_config
-        target: /usr/share/logstash/conf.d/JDBCMembershipCounts.conf
+        target: /usr/share/logstash/pipeline/JDBCFBActMembers.conf
         
 networks:
     traefik-publik:
@@ -40,16 +32,8 @@ configs:
   ls_pipelines_config:
     file: $PWD/elk/logstash/pipelines.yml
   ls_apicountryusers_config:
-    file: $PWD/elk/logstash/conf.d/APICountryUsers.conf
-  ls_jdbcactivatordonations_config:
-    file: $PWD/elk/logstash/conf.d/JDBCActivatorDonations.conf
-  ls_jdbcapplicants_config:
-    file: $PWD/elk/logstash/conf.d/JDBCApplicants.conf
-  ls_jdbcfbactgeodata_config:
-    file: $PWD/elk/logstash/conf.d/JDBCFBActGeoData.conf
+    file: $PWD/elk/logstash/config/APICountryUsers.conf
   ls_jdbcfbactmembers_config:
-    file: $PWD/elk/logstash/conf.d/JDBCFBActMembers.conf
-  ls_jdbcmembershipcounts_config:
-    file: $PWD/elk/logstash/conf.d/JDBCFBActMembers.conf
+    file: $PWD/elk/logstash/config/JDBCFBActMembers.conf
 
     
