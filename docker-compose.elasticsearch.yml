@@ -19,7 +19,6 @@ services:
       - xpack.license.self_generated.type=basic
       - network.host=0.0.0.0
     networks:
-      - elastic-net
       - traefik-public
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
@@ -37,7 +36,7 @@ services:
       labels:
         - traefik.frontend.rule=Host:elasticsearch.${DOMAIN}
         - traefik.enable=true
-        - traefik.port=9000
+        - traefik.port=9200
         - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
         - traefik.docker.network=traefik-public
         # Traefik service that listens to HTTP
@@ -47,8 +46,5 @@ services:
         - traefik.webservice.frontend.entryPoints=http
 
 networks:
-  elastic-net:
-    driver: overlay
-    attachable: true
   traefik-public:
     external: true
