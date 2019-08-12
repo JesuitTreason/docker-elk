@@ -14,7 +14,7 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
       - cluster.initial_master_nodes=${INITIAL_MASTER_NODES:-node1}
       - cluster.name=PreScience
-      - xpack.security.enabled=true
+      # xpack.security.enabled=true
       - xpack.monitoring.collection.enabled=true
       - xpack.license.self_generated.type=basic
       - network.host=0.0.0.0
@@ -48,3 +48,5 @@ services:
 networks:
   traefik-public:
     external: true
+volumes:
+  elasticsearch:
